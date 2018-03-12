@@ -1,0 +1,41 @@
+# General text file
+*.properties text=auto
+*.json text=auto
+*.conf text=auto
+*.config text=auto
+*.cfg text=auto
+*.txt text=auto
+*.template text=auto
+*.MF text=auto
+*.Manifest text=auto
+.classpath text=auto
+.gitignore text=auto
+.project text=auto
+
+
+# Programming language
+*.java text=auto
+*.cs text=auto
+*.php text=auto
+*.pl text=auto
+*.py text=auto
+*.go text=auto
+*.rb text=auto
+*.c text=auto
+*.h text=auto
+*.scala text=auto
+*.xml text=auto
+*.xsd text=auto
+*.yaml text=auto
+*.html text=auto
+*.css text=auto
+*.sass text=auto
+*.scss text=auto
+*.js text=auto
+
+
+# Binary file
+*.jar binary
+*.class binary
+*.png binary
+*.jpg binary

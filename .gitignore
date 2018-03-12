@@ -1,0 +1,58 @@
+*.war
+*.class
+node_modules/
+bower_components/
+deployd/
+.vagrant/
+.DS_Store
+
+#### Eclipse
+bin/
+build/
+.project
+.classpath
+.settings
+Servers/
+RemoteSystemsTempFiles/
+.metadata
+
+#### IntelliJ IDEA
+.idea
+*.iml
+.dpd
+
+#### for sbt
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+mail/.cache
+
+#### for vim
+.*.sw[a-z]
+*.un~
+Session.vim
+
+#### for emacs
+*~
+\#*\#
+.\#*
+.ensime
+.ensime_lucene/
+
+#### for Intellij IDEA
+*.iml
+.idea/
+.idea_modules/
+
+#### for Python
+*.pyc
+
+#### for Ruby and Chef
+Gemfile.lock
+/.bundle/
+.env
+
+
