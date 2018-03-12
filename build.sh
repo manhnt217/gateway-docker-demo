@@ -6,8 +6,6 @@ export VERSION="0.1"
 
 function build_maven() {
 
-
-
 	if [[ -z $1 ]]; then
 		# Clean all artifacts
 		for container in ./*; do
@@ -18,7 +16,7 @@ function build_maven() {
 		mvn clean package
 	elif [[ -e "./$1/pom.xml" ]]; then
 		rm -rf "./$1/docker/bin" 
-		mvn clean package -pl $1 -am
+		mvn clean package -pl $1 -am # -am: Also make
 	fi	
 }
 
@@ -31,12 +29,15 @@ function build_all_docker() {
 			pushd $container/docker > /dev/null
 				if [[ $container == "./gateway" ]]; then
 
-					${DOCKER_CMD} build -t ${PACKAGE}gateway:${VERSION} .
+					${DOCKER_CMD} build --rm -t ${PACKAGE}gateway:${VERSION} .
 				else
 					CONTAINER_NAME=${container:2}
-					${DOCKER_CMD} build --build-arg JAR_FILE=bin/app.jar -t ${PACKAGE}${CONTAINER_NAME}:${VERSION} .
+					${DOCKER_CMD} build --rm --build-arg JAR_FILE=bin/app.jar -t ${PACKAGE}${CONTAINER_NAME}:${VERSION} .
 				fi
 			popd > /dev/null
+
+			# Push to registry
+			${DOCKER_CMD} push ${PACKAGE}${container:2}:${VERSION}
 		fi
 	done
 }
@@ -49,11 +50,14 @@ function build_docker() {
 
 	pushd ./$1/docker > /dev/null
 		if [[ $1 == "gateway" ]]; then
-			${DOCKER_CMD} build -t ${PACKAGE}$1:${VERSION} .
+			${DOCKER_CMD} build --rm -t ${PACKAGE}$1:${VERSION} .
 		else
-			${DOCKER_CMD} build --build-arg JAR_FILE=bin/app.jar -t ${PACKAGE}$1:${VERSION} .
+			${DOCKER_CMD} build --rm --build-arg JAR_FILE=bin/app.jar -t ${PACKAGE}$1:${VERSION} .
 		fi
 	popd > /dev/null
+
+	# Push to registry
+	${DOCKER_CMD} push ${PACKAGE}$1:${VERSION}
 }
 
 if [[ -z $1 ]]; then
@@ -63,3 +67,8 @@ else
 	build_maven $1
 	build_docker $1
 fi
+
+# Remove intermediate containers and images
+${DOCKER_CMD} rmi `${DOCKER_CMD} images -q -f dangling=true`
+
+

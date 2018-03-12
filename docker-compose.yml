@@ -15,7 +15,7 @@ services:
   aircraft:
     image: vm2:443/aircraft:0.1
     deploy:
-      replicas: 0
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
