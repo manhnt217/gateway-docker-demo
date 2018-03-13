@@ -69,6 +69,6 @@ else
 fi
 
 # Remove intermediate containers and images
-${DOCKER_CMD} rmi `${DOCKER_CMD} images -q -f dangling=true`
+# ${DOCKER_CMD} rmi `${DOCKER_CMD} images -q -f dangling=true`
 
 
